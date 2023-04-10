@@ -21,9 +21,15 @@
     <ClCompile Include="PrimeAlgo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MonotonicStack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PrimeAlgo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MonotonicStack.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

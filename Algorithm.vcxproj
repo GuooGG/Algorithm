@@ -140,9 +140,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MonotonicStack.cpp" />
     <ClCompile Include="PrimeAlgo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MonotonicStack.h" />
     <ClInclude Include="PrimeAlgo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
