@@ -20,3 +20,4 @@ public:
 	std::vector<int> sieveOfEuler(int n = maxn);
 };
 
+
