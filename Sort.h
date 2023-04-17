@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 
-
 class Sort
 {
 public:
@@ -16,9 +15,13 @@ public:
     static void shellSort(std::vector<T>& arr);
     template<typename T>
     static void mergeSort(std::vector<T>& arr,int left,int right);
+    template<typename T>
+    static void quickSort(std::vector<T>& arr, int left, int right);
 private:
     template<typename T>
     static void merge(std::vector<T>& arr, int left, int mid, int right);
+    template<typename T>
+    static int partition(std::vector<T>& arr, int left, int right);
 };
 
 template<typename T>
@@ -103,6 +106,35 @@ void Sort::mergeSort(std::vector<T>& arr,int left,int right)
         Sort::merge(arr, left, mid, right);
     }
 
+}
+
+template<typename T>
+void Sort::quickSort(std::vector<T>& arr, int left, int right)
+{
+    if (left < right) {
+        int mid = Sort::partition(arr, left, right);
+        Sort::quickSort(arr, left, mid - 1);
+        Sort::quickSort(arr, mid + 1, right);
+    }
+}
+
+template<typename T>
+int Sort::partition(std::vector<T>& arr, int left, int right)
+{
+    int pivot = left;
+    int i = left;
+    int j = right;
+    while (i != j) {
+        while (i < j && arr[i] <= arr[pivot]) {
+            i++;
+        }
+        while (i < j && arr[j] >= arr[pivot]) {
+            j--;
+        }
+        std::swap(arr[i], arr[j]);
+    }
+    std::swap(arr[pivot], arr[i]);
+    return i;
 }
 
 template<typename T>
