@@ -11,7 +11,6 @@ private:
 	std::bitset<maxn> bitmap;
 public:
 	PrimeAlgo() = default;
-	//内联限定符的作用？
 	inline bool isprime(int x);
 	//朴素筛法
 	std::vector<int> sieve(int n = maxn);
