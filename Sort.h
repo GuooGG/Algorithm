@@ -12,7 +12,8 @@ public:
     static void selectionSort(std::vector<T>& arr);
     template <typename T>
     static void insertionSort(std::vector<T>& arr);
-
+    template<typename T>
+    static void shellSort(std::vector<T>& arr);
 };
 
 template<typename T>
@@ -61,5 +62,28 @@ void Sort::insertionSort(std::vector<T>& arr)
         }
         // 将待插入元素插入到其正确的位置上
         arr[j + 1] = key;
+    }
+}
+
+template<typename T>
+void Sort::shellSort(std::vector<T>& arr)
+{
+    int n = arr.size();
+    int gap = 1;
+    while (gap < n / 3) {
+        gap = gap * 3 + 1;
+    }
+    while (gap) {
+        T key(arr[0]);
+        for (int i = gap; i < n; i++) {
+            key = arr[i];
+            int j = i - gap;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + gap] = arr[j];
+                j = j - gap;
+            }
+            arr[j+gap] = key;
+        }
+        gap /= 3;
     }
 }
