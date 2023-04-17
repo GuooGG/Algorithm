@@ -14,6 +14,11 @@ public:
     static void insertionSort(std::vector<T>& arr);
     template<typename T>
     static void shellSort(std::vector<T>& arr);
+    template<typename T>
+    static void mergeSort(std::vector<T>& arr,int left,int right);
+private:
+    template<typename T>
+    static void merge(std::vector<T>& arr, int left, int mid, int right);
 };
 
 template<typename T>
@@ -85,5 +90,44 @@ void Sort::shellSort(std::vector<T>& arr)
             arr[j+gap] = key;
         }
         gap /= 3;
+    }
+}
+
+template<typename T>
+void Sort::mergeSort(std::vector<T>& arr,int left,int right)
+{
+    if (left < right) {
+        int mid = ((right - left) >> 1) + left;
+        Sort::mergeSort(arr, left, mid);
+        Sort::mergeSort(arr, mid + 1, right);
+        Sort::merge(arr, left, mid, right);
+    }
+
+}
+
+template<typename T>
+void Sort::merge(std::vector<T>& arr, int left, int mid, int right)
+{
+    int i = left;
+    int j = mid + 1;
+    int k = 0;
+    std::vector<T> temp(right - left + 1);
+    while (i <= mid && j <= right)
+    {
+        if (arr[i] <= arr[j]) {
+            temp[k++] = arr[i++];
+        }
+        else {
+            temp[k++] = arr[j++];
+        }
+    }
+    while (i <= mid) {
+        temp[k++] = arr[i++];
+    }
+    while (j <= right) {
+        temp[k++] = arr[j++];
+    }
+    for (int p = 0; p < k; p++) {
+        arr[left + p] = temp[p];
     }
 }
