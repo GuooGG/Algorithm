@@ -109,33 +109,37 @@ void Sort::mergeSort(std::vector<T>& arr,int left,int right)
 }
 
 template<typename T>
-void Sort::quickSort(std::vector<T>& arr, int left, int right)
-{
-    if (left < right) {
-        int mid = Sort::partition(arr, left, right);
-        Sort::quickSort(arr, left, mid - 1);
-        Sort::quickSort(arr, mid + 1, right);
-    }
-}
-
-template<typename T>
-int Sort::partition(std::vector<T>& arr, int left, int right)
+inline int Sort::partition(std::vector<T>& arr, int left, int right)
 {
     int pivot = left;
-    int i = left;
+    int i = left + 1;
     int j = right;
-    while (i != j) {
-        while (i < j && arr[i] <= arr[pivot]) {
+    while (i <= j) {
+        while (i <= j && arr[i] <= arr[pivot]) {
             i++;
         }
-        while (i < j && arr[j] >= arr[pivot]) {
+        while (i <= j && arr[j] >= arr[pivot]) {
             j--;
         }
         std::swap(arr[i], arr[j]);
+        i++;
+        j--;
     }
-    std::swap(arr[pivot], arr[i]);
-    return i;
+    std::swap(arr[pivot], arr[j]);
+    return j;
 }
+
+template<typename T>
+void quickSort(std::vector<T>& arr, int left, int right)
+{
+    if (left >= right)
+        return;
+    int pivotIndex = Sort::partition(arr, left, right);
+    Sort::quickSort(arr, left, pivotIndex - 1);
+    Sort::quickSort(arr, pivotIndex + 1, right);
+}
+
+
 
 template<typename T>
 void Sort::merge(std::vector<T>& arr, int left, int mid, int right)
