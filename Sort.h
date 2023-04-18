@@ -139,8 +139,6 @@ void quickSort(std::vector<T>& arr, int left, int right)
     Sort::quickSort(arr, pivotIndex + 1, right);
 }
 
-
-
 template<typename T>
 void Sort::merge(std::vector<T>& arr, int left, int mid, int right)
 {
