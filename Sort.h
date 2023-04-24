@@ -17,11 +17,15 @@ public:
     static void mergeSort(std::vector<T>& arr,int left,int right);
     template<typename T>
     static void quickSort(std::vector<T>& arr, int left, int right);
+    template<typename T>
+    static void heapSort(std::vector<T>& arr);
 private:
     template<typename T>
     static void merge(std::vector<T>& arr, int left, int mid, int right);
     template<typename T>
     static int partition(std::vector<T>& arr, int left, int right);
+    template<typename T>
+    static void heapify(std::vector<T>& arr, int n, int i);
 };
 
 template<typename T>
@@ -121,22 +125,60 @@ inline int Sort::partition(std::vector<T>& arr, int left, int right)
         while (i <= j && arr[j] >= arr[pivot]) {
             j--;
         }
-        std::swap(arr[i], arr[j]);
-        i++;
-        j--;
+        if (i <= j) {
+            std::swap(arr[i], arr[j]);
+            i++;
+            j--;
+        }
     }
     std::swap(arr[pivot], arr[j]);
     return j;
 }
 
 template<typename T>
-void quickSort(std::vector<T>& arr, int left, int right)
+void Sort::heapify(std::vector<T>& arr, int n, int i)
+{
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+
+    if (l < n && arr[l] > arr[largest]) {
+        largest = l;
+    }
+
+    if (r < n && arr[r] > arr[largest]) {
+        largest = r;
+    }
+
+    if (largest != i) {
+        std::swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
+}
+
+template<typename T>
+void Sort::quickSort(std::vector<T>& arr, int left, int right)
 {
     if (left >= right)
         return;
     int pivotIndex = Sort::partition(arr, left, right);
     Sort::quickSort(arr, left, pivotIndex - 1);
     Sort::quickSort(arr, pivotIndex + 1, right);
+}
+
+template<typename T>
+void Sort::heapSort(std::vector<T>& arr)
+{
+    int n = arr.size();
+
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapify(arr, n, i);
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        std::swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
 }
 
 template<typename T>
